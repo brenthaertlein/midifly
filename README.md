@@ -1,4 +1,4 @@
-# Midify
+# Midifly
 
 _Ain't nobody got time to create MIDIs no more_
 

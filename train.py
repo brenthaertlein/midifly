@@ -40,9 +40,11 @@ def train_network(name, notes_path, weights_path, sequence_length, batch_size, e
 def prepare_sequences(notes, n_vocab, sequence_length):
     """ Prepare the sequences used by the Neural Network """
 
-    print(f"Preparing sequences (length={sequence_length}")
+    print('Preparing sequences')
     # get all pitch names
     pitchnames = sorted(set(item for item in notes))
+
+    print(f'Retrieved {len(pitchnames)} notes')
 
     # create a dictionary to map pitches to integers
     note_to_int = dict((note, number) for number, note in enumerate(pitchnames))
@@ -59,6 +61,10 @@ def prepare_sequences(notes, n_vocab, sequence_length):
 
     n_patterns = len(network_input)
 
+    print(f'Serialized data length: {len(notes)}')
+    print(f'Sequence length: {sequence_length}')
+    print(f'Number of patterns: {n_patterns}')
+
     # reshape the input into a format compatible with LSTM layers
     network_input = numpy.reshape(network_input, (n_patterns, sequence_length, 1))
     # normalize input
@@ -71,7 +77,7 @@ def prepare_sequences(notes, n_vocab, sequence_length):
 
 def create_network(network_input, n_vocab):
     """ create the structure of the neural network """
-    print(f"Creating LSTM model for {network_input.shape}")
+    print(f"Creating Long short-term memory model")
     model = Sequential()
     model.add(LSTM(
         512,

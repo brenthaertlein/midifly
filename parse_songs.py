@@ -2,12 +2,12 @@ import argparse
 import glob
 import pickle
 
-import pandas as pd
 from music21 import converter, instrument, note, chord
 from music21.exceptions21 import StreamException
 
 
 def parse_midis(name, midis_dir):
+    """ Parse a directory of MIDI files into a stringified list of notes/chords, stored in binary"""
     print(f'Parsing MIDI files in {midis_dir}')
     notes = []
 
@@ -33,7 +33,7 @@ def parse_midis(name, midis_dir):
             elif isinstance(element, chord.Chord):
                 notes.append('.'.join(str(n) for n in element.normalOrder))
 
-    filename = f'data/notes/{name}.pkl'
+    filename = f'data/notes/{name}.notes.pkl'
     with open(filename, 'wb') as filepath:
         pickle.dump(notes, filepath)
     print(f'Saved notes for {name} to {filename}')
